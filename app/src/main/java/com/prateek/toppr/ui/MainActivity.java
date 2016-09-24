@@ -1,11 +1,13 @@
 package com.prateek.toppr.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -34,12 +36,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(final NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                        // First uncheck all menu items
+                        Menu menu = navigationView.getMenu();
+                        menu.size();
+
+                        for (int count = 0; count < menu.size(); count++) {
+                            MenuItem item = menu.getItem(count);
+                            if (item != null) {
+                                item.setChecked(false);
+                            }
+                        }
+
                         menuItem.setChecked(true);
+
                         mDrawerLayout.closeDrawers();
 
                         switch (menuItem.getItemId()) {
@@ -47,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "HOME", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_favourites:
+                                MainActivity.this.startActivity(new Intent(MainActivity.this, DetailsActivity.class));
                                 Toast.makeText(MainActivity.this, "FAV", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_statistics:
