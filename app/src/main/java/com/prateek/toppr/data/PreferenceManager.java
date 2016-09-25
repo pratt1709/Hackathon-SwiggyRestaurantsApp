@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.prateek.toppr.TopprApp;
-import com.prateek.toppr.rest.Response.EventsList;
 import com.prateek.toppr.rest.Favourites;
+import com.prateek.toppr.rest.Response.EventsList;
 
 
 /**
@@ -90,5 +90,18 @@ public class PreferenceManager {
                         PREFS_NAME,
                         Context.MODE_PRIVATE);
         return prefs.getString(key, null);
+    }
+
+    public static boolean isFavourite(String id) {
+
+        Favourites favourites = PreferenceManager.fetchFavourites();
+        if (favourites != null) {
+            for (String value : favourites.getIdList()) {
+                if (id.equalsIgnoreCase(value)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

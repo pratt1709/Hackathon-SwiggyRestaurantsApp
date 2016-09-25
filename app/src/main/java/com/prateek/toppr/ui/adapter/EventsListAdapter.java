@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prateek.toppr.R;
+import com.prateek.toppr.data.PreferenceManager;
 import com.prateek.toppr.rest.Event;
 import com.prateek.toppr.rest.Response.EventsList;
 import com.prateek.toppr.ui.activities.DetailsActivity;
@@ -63,6 +64,33 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
                 .load(event.getImagePath())
                 .placeholder(R.drawable.img_title)
                 .into(holder.mainImg);
+
+        if (PreferenceManager.isFavourite(event.getId())) {
+            setFavouriteImage(holder.favouriteImg, true);
+        }
+
+        holder.favouriteImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (PreferenceManager.isFavourite(event.getId())) {
+                    setFavouriteImage(holder.favouriteImg, false);
+                    PreferenceManager.removeFavourites(event.getId());
+                } else {
+                    setFavouriteImage(holder.favouriteImg, true);
+                    PreferenceManager.addFavourites(event.getId());
+                }
+            }
+        });
+
+    }
+
+    private void setFavouriteImage(ImageView imgView, boolean isEnable) {
+        if (isEnable) {
+            imgView.setImageDrawable(imgView.getContext().getResources().getDrawable(R.drawable.ic_favourite_enable));
+        } else {
+            imgView.setImageDrawable(imgView.getContext().getResources().getDrawable(R.drawable.ic_favourite_disable));
+        }
+
     }
 
     @Override
@@ -75,6 +103,7 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
         public CardView cardView;
         public TextView categoryTxt, titleTxt;
         public ImageView mainImg;
+        public ImageView favouriteImg;
 
         public MyViewHolder(View view) {
             super(view);
@@ -82,6 +111,7 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
             categoryTxt = (TextView) view.findViewById(R.id.txt_list_item_category);
             titleTxt = (TextView) view.findViewById(R.id.txt_list_item_title);
             mainImg = (ImageView) view.findViewById(R.id.img_list_item_main);
+            favouriteImg = (ImageView) view.findViewById(R.id.img_list_item_favourite);
         }
     }
 }
