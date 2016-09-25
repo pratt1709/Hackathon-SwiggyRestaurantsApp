@@ -1,7 +1,6 @@
 package com.prateek.toppr.ui.activities;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 import com.prateek.toppr.R;
 import com.prateek.toppr.data.PreferenceManager;
 import com.prateek.toppr.rest.RestClient;
-import com.prateek.toppr.rest.request.EventsListRequest;
+import com.prateek.toppr.rest.Response.EventsList;
 import com.prateek.toppr.ui.adapter.EventsListAdapter;
 
 import retrofit2.Call;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EventsListAdapter mAdapter;
 
-    private EventsListRequest mEventsListRequest;
+    private EventsList mEventsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mEventsListRequest = PreferenceManager.fetchEvents();
-        if (mEventsListRequest == null) {
+        mEventsList = PreferenceManager.fetchEvents();
+        if (mEventsList == null) {
             this.eventsCall();
         } else {
             updateView();
@@ -99,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "HOME", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_favourites:
-                                MainActivity.this.startActivity(new Intent(MainActivity.this, DetailsActivity.class));
+                                // MainActivity.this.startActivity(new Intent(MainActivity.this, DetailsActivity.class));
                                 Toast.makeText(MainActivity.this, "FAV", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_statistics:
@@ -118,27 +117,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    /*
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        switch (AppCompatDelegate.getDefaultNightMode()) {
-            case AppCompatDelegate.MODE:
-                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_AUTO:
-                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_YES:
-                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_NO:
-                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
-                break;
-        }
-        return true;
-    }
-*/
-
     private void updateView() {
         if (mAdapter == null) {
             mAdapter = new EventsListAdapter();
@@ -146,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Refresh Adapter
-        mAdapter.refreshWithData(mEventsListRequest);
+        mAdapter.refreshWithData(mEventsList);
     }
 
     private void eventsCall() {
@@ -154,22 +132,22 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog.show();
 
         // Initialize the task to fetch events
-        RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsListRequest>() {
+        RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsList>() {
             @Override
-            public void onResponse(Call<EventsListRequest> call, Response<EventsListRequest> response) {
-                mEventsListRequest = response.body();
+            public void onResponse(Call<EventsList> call, Response<EventsList> response) {
+                mEventsList = response.body();
 
                 MainActivity.this.updateView();
 
                 // Save Data
-                PreferenceManager.recordEvents(mEventsListRequest);
+                PreferenceManager.recordEvents(mEventsList);
 
                 Snackbar.make(recyclerView, R.string.request_success, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }
 
             @Override
-            public void onFailure(Call<EventsListRequest> call, Throwable t) {
+            public void onFailure(Call<EventsList> call, Throwable t) {
                 Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }

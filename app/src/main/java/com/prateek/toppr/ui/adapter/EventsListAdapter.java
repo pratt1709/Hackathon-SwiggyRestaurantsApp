@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prateek.toppr.R;
-import com.prateek.toppr.rest.request.Event;
-import com.prateek.toppr.rest.request.EventsListRequest;
+import com.prateek.toppr.rest.Event;
+import com.prateek.toppr.rest.Response.EventsList;
 import com.prateek.toppr.ui.activities.DetailsActivity;
 import com.squareup.picasso.Picasso;
 
@@ -21,18 +21,18 @@ import com.squareup.picasso.Picasso;
 
 public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.MyViewHolder> {
 
-    private EventsListRequest mListRequest;
+    private EventsList mListRequest;
 
     public EventsListAdapter() {
 
     }
 
-    public EventsListAdapter(EventsListRequest listRequest) {
+    public EventsListAdapter(EventsList listRequest) {
         this.mListRequest = listRequest;
     }
 
-    public void refreshWithData(EventsListRequest eventsListRequest) {
-        this.mListRequest = eventsListRequest;
+    public void refreshWithData(EventsList eventsList) {
+        this.mListRequest = eventsList;
         this.notifyDataSetChanged();
     }
 

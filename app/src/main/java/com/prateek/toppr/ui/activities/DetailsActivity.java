@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prateek.toppr.R;
-import com.prateek.toppr.rest.request.Event;
+import com.prateek.toppr.rest.Event;
 import com.squareup.picasso.Picasso;
 
 /**

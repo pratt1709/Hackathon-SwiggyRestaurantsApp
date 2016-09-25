@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.prateek.toppr.TopprApp;
-import com.prateek.toppr.rest.request.EventsListRequest;
-import com.prateek.toppr.rest.request.Favourites;
+import com.prateek.toppr.rest.Response.EventsList;
+import com.prateek.toppr.rest.Favourites;
 
 
 /**
@@ -20,22 +20,22 @@ public class PreferenceManager {
 
     private static final String PREFS_NAME = "app_prefs_name";
 
-    public static void recordEvents(EventsListRequest eventsListRequest) {
+    public static void recordEvents(EventsList eventsList) {
         Gson gson = new Gson();
-        String json = gson.toJson(eventsListRequest);
+        String json = gson.toJson(eventsList);
         setString(KEY_EVENTS, json);
     }
 
-    public static EventsListRequest fetchEvents() {
+    public static EventsList fetchEvents() {
         String value = getString(KEY_EVENTS);
 
-        EventsListRequest eventsListRequest = null;
+        EventsList eventsList = null;
         if (value != null) {
             Gson gson = new Gson();
-            eventsListRequest = gson.fromJson(value, EventsListRequest.class);
+            eventsList = gson.fromJson(value, EventsList.class);
         }
 
-        return eventsListRequest;
+        return eventsList;
     }
 
     public static void addFavourites(String id) {

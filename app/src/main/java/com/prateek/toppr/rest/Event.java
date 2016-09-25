@@ -1,4 +1,4 @@
-package com.prateek.toppr.rest.request;
+package com.prateek.toppr.rest;
 
 import android.os.Parcel;
 import android.os.Parcelable;

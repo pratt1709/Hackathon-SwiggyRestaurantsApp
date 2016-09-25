@@ -1,9 +1,10 @@
-package com.prateek.toppr.rest.request;
+package com.prateek.toppr.rest.Response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
+import com.prateek.toppr.rest.Event;
 
 import java.util.ArrayList;
 
@@ -11,17 +12,17 @@ import java.util.ArrayList;
  * Created by prateek.kesarwani on 25/09/16.
  */
 
-public class EventsListRequest implements Parcelable {
+public class EventsList implements Parcelable {
 
-    public static final Parcelable.Creator<EventsListRequest> CREATOR = new Parcelable.Creator<EventsListRequest>() {
+    public static final Parcelable.Creator<EventsList> CREATOR = new Parcelable.Creator<EventsList>() {
         @Override
-        public EventsListRequest createFromParcel(Parcel source) {
-            return new EventsListRequest(source);
+        public EventsList createFromParcel(Parcel source) {
+            return new EventsList(source);
         }
 
         @Override
-        public EventsListRequest[] newArray(int size) {
-            return new EventsListRequest[size];
+        public EventsList[] newArray(int size) {
+            return new EventsList[size];
         }
     };
     private ArrayList<Event> websites;
@@ -30,10 +31,10 @@ public class EventsListRequest implements Parcelable {
     @SerializedName("quote_available")
     private String availableQuote;
 
-    public EventsListRequest() {
+    public EventsList() {
     }
 
-    protected EventsListRequest(Parcel in) {
+    protected EventsList(Parcel in) {
         this.websites = in.createTypedArrayList(Event.CREATOR);
         this.totalQuote = in.readString();
         this.availableQuote = in.readString();

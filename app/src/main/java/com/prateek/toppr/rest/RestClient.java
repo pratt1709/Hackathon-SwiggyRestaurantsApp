@@ -1,6 +1,6 @@
 package com.prateek.toppr.rest;
 
-import com.prateek.toppr.rest.request.EventsListRequest;
+import com.prateek.toppr.rest.Response.EventsList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -18,7 +18,7 @@ public interface RestClient {
     String GET_EVENTS = "/api/toppr_events?type=json&query=list_events";
 
     @GET(GET_EVENTS)
-    Call<EventsListRequest> fetchEvents();
+    Call<EventsList> fetchEvents();
 
     class Implementation {
 
