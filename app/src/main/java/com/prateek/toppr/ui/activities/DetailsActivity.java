@@ -3,8 +3,10 @@ package com.prateek.toppr.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,6 @@ public class DetailsActivity extends AppCompatActivity {
 
     public static final String INTENT_EVENT_DETAIL = "intent_event_detail";
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = this.getIntent();
-        Event event = intent.getParcelableExtra(INTENT_EVENT_DETAIL);
+        final Event event = intent.getParcelableExtra(INTENT_EVENT_DETAIL);
 
         if (event != null) {
 
@@ -52,6 +53,19 @@ public class DetailsActivity extends AppCompatActivity {
 
             TextView txtDescription = (TextView) findViewById(R.id.txt_detail_description);
             txtDescription.setText(event.getDescription());
+
+            FloatingActionButton fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
+            fabShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.setType("text/html");
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, event.getSharableText());
+                    startActivity(Intent.createChooser(sharingIntent, "Share using"));
+                }
+            });
+
+
         }
     }
 }

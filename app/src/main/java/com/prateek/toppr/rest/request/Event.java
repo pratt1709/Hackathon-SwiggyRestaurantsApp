@@ -2,6 +2,8 @@ package com.prateek.toppr.rest.request;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -103,5 +105,14 @@ public class Event implements Parcelable {
         dest.writeString(this.category);
         dest.writeString(this.description);
         dest.writeString(this.experience);
+    }
+
+    public Spanned getSharableText() {
+
+        return Html.fromHtml("<p>" + "<i>Event Name: </i>" + name +
+                "                <br><br><i>Category: </i>" + category +
+                "                <br><br><i>Description: </i>" + description +
+                "                <br><br><i>Experience: </i>" + experience +
+                "                <br><br><b> REGISTER SOON </b>" + "</p>");
     }
 }
