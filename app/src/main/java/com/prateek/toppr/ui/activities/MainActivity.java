@@ -17,9 +17,13 @@ import android.widget.Toast;
 
 import com.prateek.toppr.R;
 import com.prateek.toppr.data.PreferenceManager;
-import com.prateek.toppr.rest.RestClient;
+import com.prateek.toppr.rest.Event;
+import com.prateek.toppr.rest.Favourites;
 import com.prateek.toppr.rest.Response.EventsList;
+import com.prateek.toppr.rest.RestClient;
 import com.prateek.toppr.ui.adapter.EventsListAdapter;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -95,10 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_home:
+                                mEventsList = PreferenceManager.fetchEvents();
+                                updateView();
                                 Toast.makeText(MainActivity.this, "HOME", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_favourites:
                                 // MainActivity.this.startActivity(new Intent(MainActivity.this, DetailsActivity.class));
+                                displayFavourite();
                                 Toast.makeText(MainActivity.this, "FAV", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_statistics:
@@ -125,6 +132,27 @@ public class MainActivity extends AppCompatActivity {
 
         // Refresh Adapter
         mAdapter.refreshWithData(mEventsList);
+    }
+
+    // This is kind of hack to save time
+    private void displayFavourite() {
+        Favourites favourites = PreferenceManager.fetchFavourites();
+
+        ArrayList<Event> events = new ArrayList<>();
+
+        for (int count = 0; count < mEventsList.size(); count++) {
+            Event event = mEventsList.get(count);
+            if (favourites.getIdList().contains(event.getId())) {
+                events.add(event);
+            }
+        }
+
+        EventsList list = new EventsList();
+        list.setWebsites(events);
+
+        mEventsList = list;
+
+        updateView();
     }
 
     private void eventsCall() {

@@ -25,9 +25,12 @@ public class EventsList implements Parcelable {
             return new EventsList[size];
         }
     };
+
     private ArrayList<Event> websites;
+
     @SerializedName("quote_max")
     private String totalQuote;
+
     @SerializedName("quote_available")
     private String availableQuote;
 
@@ -55,6 +58,10 @@ public class EventsList implements Parcelable {
         } else {
             return 0;
         }
+    }
+
+    public ArrayList<Event> getWebsites() {
+        return websites;
     }
 
     public void setWebsites(ArrayList<Event> web) {

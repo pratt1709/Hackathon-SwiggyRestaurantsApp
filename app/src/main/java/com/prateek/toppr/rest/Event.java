@@ -36,6 +36,10 @@ public class Event implements Parcelable {
     public Event() {
     }
 
+    public Event(String id) {
+        this.id = id;
+    }
+
     protected Event(Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
@@ -97,5 +101,21 @@ public class Event implements Parcelable {
         dest.writeString(this.description);
         dest.writeString(this.experience);
         dest.writeByte(this.isFavourite ? (byte) 1 : (byte) 0);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event = (Event) o;
+
+        return id != null ? id.equals(event.id) : event.id == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }
