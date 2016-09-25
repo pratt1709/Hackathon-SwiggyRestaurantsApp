@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.prateek.toppr.R;
+import com.prateek.toppr.data.PreferenceManager;
 import com.prateek.toppr.rest.RestClient;
 import com.prateek.toppr.rest.request.EventsListRequest;
 import com.prateek.toppr.ui.adapter.EventsListAdapter;
@@ -64,32 +65,12 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        // Initialize the task to fetch events
-        RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsListRequest>() {
-            @Override
-            public void onResponse(Call<EventsListRequest> call, Response<EventsListRequest> response) {
-                mEventsListRequest = response.body();
-
-                if (mAdapter == null) {
-                    mAdapter = new EventsListAdapter();
-                    recyclerView.setAdapter(mAdapter);
-                }
-
-                mAdapter.refreshWithData(mEventsListRequest);
-
-                Snackbar.make(recyclerView, R.string.request_success, Snackbar.LENGTH_LONG).show();
-                mProgressDialog.hide();
-            }
-
-            @Override
-            public void onFailure(Call<EventsListRequest> call, Throwable t) {
-                Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_LONG).show();
-                mProgressDialog.hide();
-            }
-        });
-
-        mProgressDialog.show();
-
+        mEventsListRequest = PreferenceManager.fetchEvents();
+        if (mEventsListRequest == null) {
+            this.eventsCall();
+        } else {
+            updateView();
+        }
     }
 
     private void setupDrawerContent(final NavigationView navigationView) {
@@ -132,11 +113,78 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_list, menu);
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        switch (AppCompatDelegate.getDefaultNightMode()) {
+            case AppCompatDelegate.MODE:
+                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_AUTO:
+                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
+                break;
+        }
+        return true;
+    }
+*/
+
+    private void updateView() {
+        if (mAdapter == null) {
+            mAdapter = new EventsListAdapter();
+            recyclerView.setAdapter(mAdapter);
+        }
+
+        // Refresh Adapter
+        mAdapter.refreshWithData(mEventsListRequest);
+    }
+
+    private void eventsCall() {
+
+        mProgressDialog.show();
+
+        // Initialize the task to fetch events
+        RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsListRequest>() {
+            @Override
+            public void onResponse(Call<EventsListRequest> call, Response<EventsListRequest> response) {
+                mEventsListRequest = response.body();
+
+                MainActivity.this.updateView();
+
+                // Save Data
+                PreferenceManager.recordEvents(mEventsListRequest);
+
+                Snackbar.make(recyclerView, R.string.request_success, Snackbar.LENGTH_LONG).show();
+                mProgressDialog.hide();
+            }
+
+            @Override
+            public void onFailure(Call<EventsListRequest> call, Throwable t) {
+                Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_LONG).show();
+                mProgressDialog.hide();
+            }
+        });
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.menu_refresh:
+                this.eventsCall();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

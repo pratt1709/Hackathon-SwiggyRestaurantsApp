@@ -15,4 +15,6 @@
     <string name="placeholder_category">Category</string>
     <string name="placeholder_desc">Description</string>
 
+    <string name="refresh_title">Refresh</string>
+
 </resources>

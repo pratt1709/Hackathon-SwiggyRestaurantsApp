@@ -87,7 +87,7 @@ public class PreferenceManager {
     public static String getString(String key) {
         SharedPreferences prefs = TopprApp.getContext()
                 .getSharedPreferences(
-                        key,
+                        PREFS_NAME,
                         Context.MODE_PRIVATE);
         return prefs.getString(key, null);
     }
