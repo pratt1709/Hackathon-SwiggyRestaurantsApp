@@ -5,4 +5,14 @@
     <string name="request_error">Error Occurred, Please try refreshing</string>
     <string name="request_success">Successfully fetched events</string>
     <string name="share_chooser">Share using</string>
+
+    <string name="experience">Experience: %1$s</string>
+    <string name="category">Category: %1$s</string>
+
+    <string name="description"><b>Description:</b></string>
+
+    <string name="placeholder_exp">Experience</string>
+    <string name="placeholder_category">Category</string>
+    <string name="placeholder_desc">Description</string>
+
 </resources>

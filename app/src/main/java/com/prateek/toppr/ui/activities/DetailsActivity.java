@@ -6,6 +6,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,14 +46,22 @@ public class DetailsActivity extends AppCompatActivity {
                     .placeholder(R.drawable.img_title)
                     .into(imgBackdrop);
 
-            TextView txtExperience = (TextView) findViewById(R.id.txt_detail_experience);
-            txtExperience.setText(event.getExperience());
+            String exp = event.getExperience();
+            if (!TextUtils.isEmpty(exp)) {
+                TextView txtExperience = (TextView) findViewById(R.id.txt_detail_experience);
+                txtExperience.setText(String.format(getResources().getString(R.string.experience), exp));
+            }
 
-            TextView txtCategory = (TextView) findViewById(R.id.txt_detail_category);
-            txtCategory.setText(event.getCategory());
+            String category = event.getCategory();
+            if (!TextUtils.isEmpty(category)) {
+                TextView txtCategory = (TextView) findViewById(R.id.txt_detail_category);
+                txtCategory.setText(String.format(getResources().getString(R.string.category), category));
+            }
 
-            TextView txtDescription = (TextView) findViewById(R.id.txt_detail_description);
-            txtDescription.setText(event.getDescription());
+            if (!TextUtils.isEmpty(event.getDescription())) {
+                TextView txtDescription = (TextView) findViewById(R.id.txt_detail_description);
+                txtDescription.setText(event.getDescription());
+            }
 
             FloatingActionButton fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
             fabShare.setOnClickListener(new View.OnClickListener() {
