@@ -1,4 +1,4 @@
-package com.prateek.toppr.ui;
+package com.prateek.toppr.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
