@@ -61,7 +61,7 @@ public class DetailsActivity extends AppCompatActivity {
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                     sharingIntent.setType("text/html");
                     sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, event.getSharableText());
-                    startActivity(Intent.createChooser(sharingIntent, "Share using"));
+                    startActivity(Intent.createChooser(sharingIntent, "@string/share_chooser"));
                 }
             });
 
