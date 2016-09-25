@@ -31,6 +31,7 @@ public class Event implements Parcelable {
     private String category;
     private String description;
     private String experience;
+    private boolean isFavourite;
 
     public Event() {
     }
@@ -42,54 +43,44 @@ public class Event implements Parcelable {
         this.category = in.readString();
         this.description = in.readString();
         this.experience = in.readString();
+        this.isFavourite = in.readByte() != 0;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getImagePath() {
         return imagePath;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getExperience() {
         return experience;
     }
 
-    public void setExperience(String experience) {
-        this.experience = experience;
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    public Spanned getSharableText() {
+
+        return Html.fromHtml("<p>" + "<i>Event Name: </i>" + name +
+                "                <br><br><i>Category: </i>" + category +
+                "                <br><br><i>Description: </i>" + description +
+                "                <br><br><i>Experience: </i>" + experience +
+                "                <br><br><b> REGISTER SOON </b>" + "</p>");
     }
 
     @Override
@@ -105,14 +96,6 @@ public class Event implements Parcelable {
         dest.writeString(this.category);
         dest.writeString(this.description);
         dest.writeString(this.experience);
-    }
-
-    public Spanned getSharableText() {
-
-        return Html.fromHtml("<p>" + "<i>Event Name: </i>" + name +
-                "                <br><br><i>Category: </i>" + category +
-                "                <br><br><i>Description: </i>" + description +
-                "                <br><br><i>Experience: </i>" + experience +
-                "                <br><br><b> REGISTER SOON </b>" + "</p>");
+        dest.writeByte(this.isFavourite ? (byte) 1 : (byte) 0);
     }
 }
