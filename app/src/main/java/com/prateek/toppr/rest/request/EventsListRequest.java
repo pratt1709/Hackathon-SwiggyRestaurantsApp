@@ -1,6 +1,7 @@
 package com.prateek.toppr.rest.request;
 
-import java.lang.reflect.Array;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +11,12 @@ import java.util.ArrayList;
 public class EventsListRequest {
 
     private ArrayList<Event> websites;
+
+    @SerializedName("quote_max")
+    private String totalQuote;
+
+    @SerializedName("quote_available")
+    private String availableQuote;
 
     public Event get(int position) {
 
@@ -32,6 +39,13 @@ public class EventsListRequest {
         websites = web;
     }
 
+    public String getTotalQuote() {
+        return totalQuote;
+    }
+
+    public String getAvailableQuote() {
+        return availableQuote;
+    }
 }
 
 
