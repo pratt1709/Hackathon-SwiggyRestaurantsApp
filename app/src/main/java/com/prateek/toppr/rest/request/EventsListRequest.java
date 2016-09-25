@@ -1,12 +1,37 @@
 package com.prateek.toppr.rest.request;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * Created by prateek.kesarwani on 25/09/16.
  */
 
-public class EventsListRequest extends ArrayList<Event> {
+public class EventsListRequest {
+
+    private ArrayList<Event> websites;
+
+    public Event get(int position) {
+
+        if (websites != null && position < websites.size()) {
+            return websites.get(position);
+        } else {
+            return null;
+        }
+    }
+
+    public int size() {
+        if (websites != null) {
+            return websites.size();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setWebsites(ArrayList<Event> web) {
+        websites = web;
+    }
+
 }
 
 

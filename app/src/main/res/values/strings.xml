@@ -3,4 +3,5 @@
     <string name="app_title">EVENTS</string>
     <string name="request_progress">Fetching events, please wait</string>
     <string name="request_error">Error Occurred, Please try refreshing</string>
+    <string name="request_success">Successfully fetched events</string>
 </resources>

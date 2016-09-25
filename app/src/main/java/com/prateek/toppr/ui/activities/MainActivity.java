@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -59,10 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-
-        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        // recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(mLayoutManager);
 
         // Initialize the task to fetch events
         RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsListRequest>() {
@@ -70,15 +70,20 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<EventsListRequest> call, Response<EventsListRequest> response) {
                 mEventsListRequest = response.body();
 
-                mAdapter = new EventsListAdapter(mEventsListRequest);
-                recyclerView.setAdapter(mAdapter);
+                if (mAdapter == null) {
+                    mAdapter = new EventsListAdapter();
+                    recyclerView.setAdapter(mAdapter);
+                }
 
+                mAdapter.refreshWithData(mEventsListRequest);
+
+                Snackbar.make(recyclerView, R.string.request_success, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }
 
             @Override
             public void onFailure(Call<EventsListRequest> call, Throwable t) {
-                Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }
         });

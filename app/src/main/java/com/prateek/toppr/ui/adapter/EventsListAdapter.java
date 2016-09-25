@@ -20,8 +20,17 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.My
 
     private EventsListRequest mListRequest;
 
+    public EventsListAdapter() {
+
+    }
+
     public EventsListAdapter(EventsListRequest listRequest) {
         this.mListRequest = listRequest;
+    }
+
+    public void refreshWithData(EventsListRequest eventsListRequest) {
+        this.mListRequest = eventsListRequest;
+        this.notifyDataSetChanged();
     }
 
     @Override
