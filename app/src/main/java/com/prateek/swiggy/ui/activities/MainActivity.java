@@ -1,4 +1,4 @@
-package com.prateek.toppr.ui.activities;
+package com.prateek.swiggy.ui.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -15,13 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.prateek.toppr.R;
-import com.prateek.toppr.data.PreferenceManager;
-import com.prateek.toppr.rest.Event;
-import com.prateek.toppr.rest.Favourites;
-import com.prateek.toppr.rest.Response.EventsList;
-import com.prateek.toppr.rest.RestClient;
-import com.prateek.toppr.ui.adapter.EventsListAdapter;
+import com.prateek.swiggy.R;
+import com.prateek.swiggy.data.PreferenceManager;
+import com.prateek.swiggy.rest.Event;
+import com.prateek.swiggy.rest.Favourites;
+import com.prateek.swiggy.rest.Response.EventsList;
+import com.prateek.swiggy.rest.RestClient;
+import com.prateek.swiggy.ui.adapter.EventsListAdapter;
 
 import java.util.ArrayList;
 

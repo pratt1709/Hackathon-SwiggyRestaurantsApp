@@ -1,4 +1,4 @@
-package com.prateek.toppr.rest;
+package com.prateek.swiggy.rest;
 
 import android.os.Parcel;
 import android.os.Parcelable;

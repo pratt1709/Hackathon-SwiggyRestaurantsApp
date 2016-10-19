@@ -1,10 +1,10 @@
-package com.prateek.toppr.rest.Response;
+package com.prateek.swiggy.rest.Response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
-import com.prateek.toppr.rest.Event;
+import com.prateek.swiggy.rest.Event;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by prateek.kesarwani on 25/09/16.
  */
 
-public class EventsList implements Parcelable {
+public class EventsList implements Parcelable, Comparable {
 
     public static final Parcelable.Creator<EventsList> CREATOR = new Parcelable.Creator<EventsList>() {
         @Override
@@ -87,6 +87,12 @@ public class EventsList implements Parcelable {
         dest.writeString(this.totalQuote);
         dest.writeString(this.availableQuote);
     }
+
+    @Override
+    public int compareTo(Object another) {
+        return 0;
+    }
+
 }
 
 

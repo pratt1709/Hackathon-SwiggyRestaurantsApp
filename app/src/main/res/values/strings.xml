@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Toppr</string>
+    <string name="app_name">Swiggy</string>
     <string name="app_title">EVENTS</string>
     <string name="request_progress">Fetching events, please wait</string>
     <string name="request_error">Error Occurred, Please try refreshing</string>

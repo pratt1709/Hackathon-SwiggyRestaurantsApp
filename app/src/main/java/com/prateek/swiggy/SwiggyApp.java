@@ -1,4 +1,4 @@
-package com.prateek.toppr;
+package com.prateek.swiggy;
 
 import android.app.Application;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.Context;
  * Created by prateek.kesarwani on 25/09/16.
  */
 
-public class TopprApp extends Application {
+public class SwiggyApp extends Application {
 
     private static Context context;
 

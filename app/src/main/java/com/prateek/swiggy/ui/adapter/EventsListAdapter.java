@@ -1,4 +1,4 @@
-package com.prateek.toppr.ui.adapter;
+package com.prateek.swiggy.ui.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.CardView;
@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.prateek.toppr.R;
-import com.prateek.toppr.data.PreferenceManager;
-import com.prateek.toppr.rest.Event;
-import com.prateek.toppr.rest.Response.EventsList;
-import com.prateek.toppr.ui.activities.DetailsActivity;
+import com.prateek.swiggy.R;
+import com.prateek.swiggy.data.PreferenceManager;
+import com.prateek.swiggy.rest.Event;
+import com.prateek.swiggy.rest.Response.EventsList;
+import com.prateek.swiggy.ui.activities.DetailsActivity;
 import com.squareup.picasso.Picasso;
 
 /**

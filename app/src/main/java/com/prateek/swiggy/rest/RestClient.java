@@ -1,6 +1,6 @@
-package com.prateek.toppr.rest;
+package com.prateek.swiggy.rest;
 
-import com.prateek.toppr.rest.Response.EventsList;
+import com.prateek.swiggy.rest.Response.EventsList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;

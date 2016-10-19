@@ -1,4 +1,4 @@
-package com.prateek.toppr.ui.activities;
+package com.prateek.swiggy.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.prateek.toppr.R;
-import com.prateek.toppr.rest.Event;
+import com.prateek.swiggy.R;
+import com.prateek.swiggy.rest.Event;
 import com.squareup.picasso.Picasso;
 
 /**

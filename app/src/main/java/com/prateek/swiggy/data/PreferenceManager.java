@@ -1,12 +1,12 @@
-package com.prateek.toppr.data;
+package com.prateek.swiggy.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.prateek.toppr.TopprApp;
-import com.prateek.toppr.rest.Favourites;
-import com.prateek.toppr.rest.Response.EventsList;
+import com.prateek.swiggy.SwiggyApp;
+import com.prateek.swiggy.rest.Favourites;
+import com.prateek.swiggy.rest.Response.EventsList;
 
 
 /**
@@ -79,13 +79,13 @@ public class PreferenceManager {
     }
 
     private static void setString(String key, String value) {
-        SharedPreferences.Editor editor = TopprApp.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor editor = SwiggyApp.getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit();
         editor.putString(key, value);
         editor.commit();
     }
 
     public static String getString(String key) {
-        SharedPreferences prefs = TopprApp.getContext()
+        SharedPreferences prefs = SwiggyApp.getContext()
                 .getSharedPreferences(
                         PREFS_NAME,
                         Context.MODE_PRIVATE);
