@@ -24,7 +24,6 @@ public class Data implements Parcelable {
     public Data() {
     }
 
-
     protected Data(Parcel in) {
         this.restaurants = in.createTypedArrayList(Restaurant.CREATOR);
     }
