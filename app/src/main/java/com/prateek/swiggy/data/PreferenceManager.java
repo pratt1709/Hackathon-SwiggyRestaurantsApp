@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.prateek.swiggy.SwiggyApp;
-import com.prateek.swiggy.rest.Favourites;
-import com.prateek.swiggy.rest.Response.EventsList;
+import com.prateek.swiggy.rest.Response.RestaurantsList;
 
 
 /**
@@ -15,67 +14,26 @@ import com.prateek.swiggy.rest.Response.EventsList;
 
 public class PreferenceManager {
 
-    public static final String KEY_EVENTS = "key_events";
-    public static final String KEY_FAVOURITES = "key_favourites";
+    public static final String KEY_RESTAURANTS = "key_restaurants";
 
     private static final String PREFS_NAME = "app_prefs_name";
 
-    public static void recordEvents(EventsList eventsList) {
+    public static void recordRestaurants(RestaurantsList restaurantsList) {
         Gson gson = new Gson();
-        String json = gson.toJson(eventsList);
-        setString(KEY_EVENTS, json);
+        String json = gson.toJson(restaurantsList);
+        setString(KEY_RESTAURANTS, json);
     }
 
-    public static EventsList fetchEvents() {
-        String value = getString(KEY_EVENTS);
+    public static RestaurantsList fetchRestaurants() {
+        String value = getString(KEY_RESTAURANTS);
 
-        EventsList eventsList = null;
+        RestaurantsList restaurantsList = null;
         if (value != null) {
             Gson gson = new Gson();
-            eventsList = gson.fromJson(value, EventsList.class);
+            restaurantsList = gson.fromJson(value, RestaurantsList.class);
         }
 
-        return eventsList;
-    }
-
-    public static void addFavourites(String id) {
-        Favourites favourites = PreferenceManager.fetchFavourites();
-        if (favourites == null) {
-            favourites = new Favourites();
-        }
-
-        favourites.addFavourite(id);
-
-        PreferenceManager.recordFavourites(favourites);
-    }
-
-    public static void removeFavourites(String id) {
-        Favourites favourites = PreferenceManager.fetchFavourites();
-        if (favourites == null) {
-            favourites = new Favourites();
-        }
-
-        favourites.removeFavourites(id);
-
-        PreferenceManager.recordFavourites(favourites);
-    }
-
-    public static Favourites fetchFavourites() {
-        String value = getString(KEY_FAVOURITES);
-
-        Favourites favourites = null;
-        if (value != null) {
-            Gson gson = new Gson();
-            favourites = gson.fromJson(value, Favourites.class);
-        }
-
-        return favourites;
-    }
-
-    public static void recordFavourites(Favourites favourites) {
-        Gson gson = new Gson();
-        String json = gson.toJson(favourites);
-        setString(KEY_FAVOURITES, json);
+        return restaurantsList;
     }
 
     private static void setString(String key, String value) {
@@ -84,24 +42,11 @@ public class PreferenceManager {
         editor.commit();
     }
 
-    public static String getString(String key) {
+    private static String getString(String key) {
         SharedPreferences prefs = SwiggyApp.getContext()
                 .getSharedPreferences(
                         PREFS_NAME,
                         Context.MODE_PRIVATE);
         return prefs.getString(key, null);
-    }
-
-    public static boolean isFavourite(String id) {
-
-        Favourites favourites = PreferenceManager.fetchFavourites();
-        if (favourites != null) {
-            for (String value : favourites.getIdList()) {
-                if (id.equalsIgnoreCase(value)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

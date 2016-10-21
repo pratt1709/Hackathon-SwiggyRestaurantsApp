@@ -1,6 +1,6 @@
 package com.prateek.swiggy.rest;
 
-import com.prateek.swiggy.rest.Response.EventsList;
+import com.prateek.swiggy.rest.Response.RestaurantsResponse;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -8,17 +8,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 /**
- * Created by prateek.kesarwani on 25/09/16.
+ * Created by prateek.kesarwani on 21/10/16.
  */
 
 public interface RestClient {
 
-    String end_point = "https://hackerearth.0x10.info/";
+    String end_point = "https://api.myjson.com/";
 
-    String GET_EVENTS = "/api/toppr_events?type=json&query=list_events";
+    String GET_EVENTS = "/bins/4l9a4";
 
     @GET(GET_EVENTS)
-    Call<EventsList> fetchEvents();
+    Call<RestaurantsResponse> fetchRestaurants();
 
     class Implementation {
 

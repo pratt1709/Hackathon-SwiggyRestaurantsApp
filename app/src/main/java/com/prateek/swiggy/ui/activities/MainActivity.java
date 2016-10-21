@@ -17,13 +17,10 @@ import android.widget.Toast;
 
 import com.prateek.swiggy.R;
 import com.prateek.swiggy.data.PreferenceManager;
-import com.prateek.swiggy.rest.Event;
-import com.prateek.swiggy.rest.Favourites;
-import com.prateek.swiggy.rest.Response.EventsList;
+import com.prateek.swiggy.rest.Response.RestaurantsList;
+import com.prateek.swiggy.rest.Response.RestaurantsResponse;
 import com.prateek.swiggy.rest.RestClient;
-import com.prateek.swiggy.ui.adapter.EventsListAdapter;
-
-import java.util.ArrayList;
+import com.prateek.swiggy.ui.adapter.RestaurantsListAdapter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
 
     private RecyclerView recyclerView;
-    private EventsListAdapter mAdapter;
+    private RestaurantsListAdapter mAdapter;
 
-    private EventsList mEventsList;
+    private RestaurantsList mRestarantsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mEventsList = PreferenceManager.fetchEvents();
-        if (mEventsList == null) {
+        mRestarantsList = PreferenceManager.fetchRestaurants();
+        if (mRestarantsList == null) {
             this.eventsCall();
         } else {
             updateView();
@@ -99,13 +96,13 @@ public class MainActivity extends AppCompatActivity {
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_home:
-                                mEventsList = PreferenceManager.fetchEvents();
+                                // mRestarantsList = PreferenceManager.fetchEvents();
                                 updateView();
                                 Toast.makeText(MainActivity.this, "HOME", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_favourites:
                                 // MainActivity.this.startActivity(new Intent(MainActivity.this, DetailsActivity.class));
-                                displayFavourite();
+                                // displayFavourite();
                                 Toast.makeText(MainActivity.this, "FAV", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.nav_statistics:
@@ -126,33 +123,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView() {
         if (mAdapter == null) {
-            mAdapter = new EventsListAdapter();
+            mAdapter = new RestaurantsListAdapter();
             recyclerView.setAdapter(mAdapter);
         }
 
         // Refresh Adapter
-        mAdapter.refreshWithData(mEventsList);
-    }
-
-    // This is kind of hack to save time
-    private void displayFavourite() {
-        Favourites favourites = PreferenceManager.fetchFavourites();
-
-        ArrayList<Event> events = new ArrayList<>();
-
-        for (int count = 0; count < mEventsList.size(); count++) {
-            Event event = mEventsList.get(count);
-            if (favourites.getIdList().contains(event.getId())) {
-                events.add(event);
-            }
-        }
-
-        EventsList list = new EventsList();
-        list.setWebsites(events);
-
-        mEventsList = list;
-
-        updateView();
+        mAdapter.refreshWithData(mRestarantsList);
     }
 
     private void eventsCall() {
@@ -160,22 +136,25 @@ public class MainActivity extends AppCompatActivity {
         mProgressDialog.show();
 
         // Initialize the task to fetch events
-        RestClient.Implementation.getClient().fetchEvents().enqueue(new Callback<EventsList>() {
+        RestClient.Implementation.getClient().fetchRestaurants().enqueue(new Callback<RestaurantsResponse>() {
             @Override
-            public void onResponse(Call<EventsList> call, Response<EventsList> response) {
-                mEventsList = response.body();
+            public void onResponse(Call<RestaurantsResponse> call, Response<RestaurantsResponse> response) {
+
+                if (response.body() != null && response.body().getRestaurantsList() != null) {
+                    mRestarantsList = response.body().getRestaurantsList();
+                }
 
                 MainActivity.this.updateView();
 
-                // Save Data
-                PreferenceManager.recordEvents(mEventsList);
+                // Save RestaurantsList
+                PreferenceManager.recordRestaurants(mRestarantsList);
 
                 Snackbar.make(recyclerView, R.string.request_success, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }
 
             @Override
-            public void onFailure(Call<EventsList> call, Throwable t) {
+            public void onFailure(Call<RestaurantsResponse> call, Throwable t) {
                 Snackbar.make(recyclerView, R.string.request_error, Snackbar.LENGTH_LONG).show();
                 mProgressDialog.hide();
             }

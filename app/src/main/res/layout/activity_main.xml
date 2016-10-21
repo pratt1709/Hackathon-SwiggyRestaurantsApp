@@ -26,12 +26,62 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/card_margin_small"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:padding="8dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <!--<Spinner-->
+                <!--android:id="@+id/main_spinner_location"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/main_layout_location"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:background="@drawable/ic_location" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/main_txt_location"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="4dp"-->
+                        <!--android:text="Koramangala"-->
+                        <!--android:textColor="@color/textColor"-->
+                        <!--android:textSize="18sp" />-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="4dp"-->
+                        <!--android:background="@drawable/ic_chevron" />-->
+
+                <!--</LinearLayout>-->
+            <!--</Spinner>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="32dp"-->
+                <!--android:layout_height="32dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:background="@drawable/ic_filter"/>-->
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/card_margin_small" />
+
+        </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 

@@ -1,19 +1,10 @@
 package com.prateek.swiggy.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.prateek.swiggy.R;
-import com.prateek.swiggy.rest.Event;
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by prateek.kesarwani on 25/09/16.
@@ -32,6 +23,7 @@ public class DetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        /*
         Intent intent = this.getIntent();
         final Event event = intent.getParcelableExtra(INTENT_EVENT_DETAIL);
 
@@ -76,5 +68,6 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         }
+        */
     }
 }
