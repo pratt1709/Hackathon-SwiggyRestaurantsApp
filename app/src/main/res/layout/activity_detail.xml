@@ -7,131 +7,189 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:id="@+id/appbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="256dp"-->
-        <!--android:fitsSystemWindows="true"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="16dp"
+            app:title="@string/app_title">
 
-        <!--<android.support.design.widget.CollapsingToolbarLayout-->
-            <!--android:id="@+id/collapsing_toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:fitsSystemWindows="true"-->
-            <!--app:contentScrim="?attr/colorPrimary"-->
-            <!--app:expandedTitleMarginEnd="64dp"-->
-            <!--app:expandedTitleMarginStart="16dp"-->
-            <!--app:title="@string/app_title">-->
+            <ImageView
+                android:id="@+id/img_backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/img_title"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/img_backdrop"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/img_title"-->
-                <!--android:fitsSystemWindows="true"-->
-                <!--android:scaleType="centerCrop" />-->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <!--<android.support.v7.widget.Toolbar-->
-                <!--android:id="@+id/toolbar"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="?attr/actionBarSize"-->
-                <!--app:layout_collapseMode="pin"-->
-                <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+        </android.support.design.widget.CollapsingToolbarLayout>
 
-        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+    </android.support.design.widget.AppBarLayout>
 
-    <!--</android.support.design.widget.AppBarLayout>-->
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_margin_small"
+        android:layout_marginLeft="@dimen/card_margin_small"
+        android:layout_marginRight="@dimen/card_margin_small"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="4dp"
+        card_view:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="@dimen/card_margin_small"-->
-        <!--android:layout_marginRight="@dimen/card_margin_small"-->
-        <!--android:layout_marginTop="@dimen/card_margin_medium"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
+        <RelativeLayout
+            android:id="@+id/item_layout_main_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
-        <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/card_view_title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginBottom="@dimen/card_margin_small"-->
-            <!--card_view:cardCornerRadius="2dp"-->
-            <!--card_view:contentPadding="4dp">-->
+            <ImageView
+                android:id="@+id/item_img_restaurant"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/item_view"
+                android:layout_alignTop="@id/item_view"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/img_title" />
 
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="8dp">-->
+            <TextView
+                android:id="@id/item_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/item_img_restaurant"
+                android:background="#00000000"
+                android:lines="5" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_detail_experience"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentTop="true"-->
-                    <!--android:layout_marginBottom="@dimen/card_margin_small"-->
-                    <!--android:text="@string/placeholder_exp"-->
-                    <!--android:textStyle="bold" />/>-->
+            <TextView
+                android:id="@+id/item_txt_restaurant_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/item_img_restaurant"
+                android:layout_toRightOf="@id/item_img_restaurant"
+                android:text="Madurai Idly Shop" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_detail_category"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_below="@id/txt_detail_experience"-->
-                    <!--android:text="@string/placeholder_category"-->
-                    <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/item_txt_restaurant_cuisine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_txt_restaurant_title"
+                android:layout_toRightOf="@id/item_img_restaurant"
+                android:text="South Indian" />
 
-            <!--</RelativeLayout>-->
-        <!--</android.support.v7.widget.CardView>-->
+            <TextView
+                android:id="@+id/item_divider_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/item_txt_restaurant_cuisine"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@id/item_img_restaurant"
+                android:background="@color/dividerColor" />
 
-        <!--<android.support.v7.widget.CardView-->
+            <TextView
+                android:id="@+id/item_divider_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/item_img_restaurant"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/dividerColor" />
 
-            <!--android:id="@+id/card_view_desc"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginBottom="@dimen/card_margin_medium"-->
-            <!--card_view:cardCornerRadius="2dp"-->
-            <!--card_view:contentPadding="4dp">-->
+            <TextView
+                android:id="@+id/item_text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/item_img_restaurant"
+                android:layout_below="@id/item_divider_1"
+                android:layout_toRightOf="@id/item_img_restaurant"
+                android:gravity="center"
+                android:text="3.6" />
 
-            <!--<RelativeLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:padding="8dp">-->
+            <TextView
+                android:id="@+id/item_text_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/item_img_restaurant"
+                android:layout_below="@id/item_divider_1"
+                android:layout_marginRight="4dp"
+                android:layout_toLeftOf="@+id/item_text_rating_symbol"
+                android:gravity="center"
+                android:text="3.6" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_desc"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentTop="true"-->
-                    <!--android:layout_marginBottom="@dimen/card_margin_small"-->
-                    <!--android:text="@string/description"-->
-                    <!--android:textStyle="bold" />-->
+            <ImageView
+                android:id="@id/item_text_rating_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/item_img_restaurant"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/item_divider_1"
+                android:src="@drawable/ic_rating" />
 
-                <!--<TextView-->
-                    <!--android:id="@+id/txt_detail_description"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_alignParentBottom="true"-->
-                    <!--android:layout_below="@id/txt_desc"-->
-                    <!--android:text="@string/placeholder_desc"-->
-                    <!--android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/item_txt_restaurant_opening_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_divider_2"
+                android:gravity="center"
+                android:text="Opens next at 8 am, todays" />
 
-            <!--</RelativeLayout>-->
-        <!--</android.support.v7.widget.CardView>-->
-    <!--</LinearLayout>-->
+            <TextView
+                android:id="@+id/item_divider_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/item_txt_restaurant_opening_info"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/dividerColor" />
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab_share"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:clickable="true"-->
-        <!--android:src="@android:drawable/ic_menu_share"-->
-        <!--app:layout_anchor="@id/appbar"-->
-        <!--app:layout_anchorGravity="bottom|right|end" />-->
+
+            <TextView
+                android:id="@+id/item_txt_restaurant_outlet_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_divider_3"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Two outlets around you" />
+
+            <ImageView
+                android:id="@+id/item_img_chevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/item_txt_restaurant_outlet_info"
+                android:layout_below="@id/item_divider_3"
+                android:layout_toRightOf="@id/item_txt_restaurant_outlet_info"
+                android:src="@drawable/ic_chevron" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_share"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

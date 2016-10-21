@@ -1,10 +1,18 @@
 package com.prateek.swiggy.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.prateek.swiggy.R;
+import com.prateek.swiggy.rest.Response.Restaurant;
+
+import java.util.List;
 
 /**
  * Created by prateek.kesarwani on 25/09/16.
@@ -12,7 +20,7 @@ import com.prateek.swiggy.R;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    public static final String INTENT_EVENT_DETAIL = "intent_event_detail";
+    public static final String INTENT_RESTAURANT_DETAIL = "intent_restaurant_detail";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,51 +31,54 @@ public class DetailsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*
+
         Intent intent = this.getIntent();
-        final Event event = intent.getParcelableExtra(INTENT_EVENT_DETAIL);
+        final Restaurant restaurant = intent.getParcelableExtra(INTENT_RESTAURANT_DETAIL);
 
-        if (event != null) {
+        TextView txtRestaurantCuisine = (TextView) this.findViewById(R.id.item_txt_restaurant_cuisine);
+        TextView txtRestaurantPrice = (TextView) this.findViewById(R.id.item_text_price);
+        TextView txtRestaurantRating = (TextView) this.findViewById(R.id.item_text_rating);
+        TextView txtOpeningTime = (TextView) this.findViewById(R.id.item_txt_restaurant_opening_info);
+        TextView txtOutletCount = (TextView) this.findViewById(R.id.item_txt_restaurant_outlet_info);
 
-            CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-            toolbarLayout.setTitle(event.getName());
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(restaurant.getName());
 
-            ImageView imgBackdrop = (ImageView) findViewById(R.id.img_backdrop);
-            Picasso.with(this)
-                    .load(event.getImagePath())
-                    .placeholder(R.drawable.img_title)
-                    .into(imgBackdrop);
 
-            String exp = event.getExperience();
-            if (!TextUtils.isEmpty(exp)) {
-                TextView txtExperience = (TextView) findViewById(R.id.txt_detail_experience);
-                txtExperience.setText(String.format(getResources().getString(R.string.experience), exp));
-            }
+        List<String> cuisineList = restaurant.getCuisine();
+        String cuisineText = "";
 
-            String category = event.getCategory();
-            if (!TextUtils.isEmpty(category)) {
-                TextView txtCategory = (TextView) findViewById(R.id.txt_detail_category);
-                txtCategory.setText(String.format(getResources().getString(R.string.category), category));
-            }
+        if (cuisineList != null && cuisineList.size() > 0) {
+            cuisineText = cuisineList.get(0);
+        }
 
-            if (!TextUtils.isEmpty(event.getDescription())) {
-                TextView txtDescription = (TextView) findViewById(R.id.txt_detail_description);
-                txtDescription.setText(event.getDescription());
-            }
+        for (int count = 1; count < cuisineList.size(); count++) {
+            cuisineText = cuisineText + ", " + cuisineList.get(count);
+        }
 
+        txtRestaurantCuisine.setText(cuisineText);
+
+        txtRestaurantRating.setText("" + restaurant.getAvgRating());
+
+        txtOpeningTime.setText(restaurant.getNextOpenMessage());
+
+        txtOutletCount.setText(String.format(this.getResources().getString(R.string.outlets_around), "" + restaurant.getChain().size()));
+
+        txtRestaurantPrice.setText(this.getResources().getString(R.string.price) + " " +
+                restaurant.getCostForTwoString() + restaurant.getCostForTwo());
+
+
+        if (restaurant != null) {
             FloatingActionButton fabShare = (FloatingActionButton) findViewById(R.id.fab_share);
             fabShare.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                     sharingIntent.setType("text/html");
-                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, event.getSharableText());
+                    sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, restaurant.getSharableText());
                     startActivity(Intent.createChooser(sharingIntent, "@string/share_chooser"));
                 }
             });
-
-
         }
-        */
     }
 }

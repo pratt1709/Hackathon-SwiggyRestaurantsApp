@@ -2,6 +2,10 @@ package com.prateek.swiggy.rest.Response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.Html;
+import android.text.Spanned;
+
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,8 @@ public class Restaurant implements Parcelable {
     private String uuid;
     private String city;
     private String area;
+
+    @SerializedName("avg_rating")
     private String avgRating;
     private String totalRatings;
     private String cloudinaryImageId;
@@ -352,5 +358,20 @@ public class Restaurant implements Parcelable {
         dest.writeByte(this.veg ? (byte) 1 : (byte) 0);
         dest.writeByte(this.select ? (byte) 1 : (byte) 0);
         dest.writeByte(this.favorite ? (byte) 1 : (byte) 0);
+    }
+
+    public Spanned getSharableText() {
+
+        String cuisineText = "";
+
+        for (String value : cuisine) {
+            cuisineText = cuisineText + value + ", ";
+        }
+
+        return Html.fromHtml("<p>" + "<i>Restaurant Name: </i>" + name +
+                "                <br><br><i>Cusines: </i>" + cuisineText +
+                "                <br><br><i>Rating: </i>" + avgRating +
+                "                <br><br><i>Opening: </i>" + getNextOpenMessage() +
+                "                <br><br><b> Grab a bite, ORDER NOW </b>" + "</p>");
     }
 }
